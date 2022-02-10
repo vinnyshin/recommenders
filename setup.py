@@ -53,8 +53,14 @@ install_requires = [
 
 # shared dependencies
 extras_require = {
+    "azure":[
+        "azureml.core<=1.38.0",
+        "azure-cli-core<=2.29.2",
+        "azure-identity<=1.7.1",
+        "azure-cosmos<=4.2.0,>=4" 
+    ],
     "examples": [
-        "azure.mgmt.cosmosdb>=0.8.0,<1",
+        "azure.mgmt.cosmosdb>=0.8.0,<7",
         "hyperopt>=0.1.2,<1",
         "ipykernel>=4.6.1,<7",
         "jupyter>=1,<2",

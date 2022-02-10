@@ -54,7 +54,7 @@ install_requires = [
 # shared dependencies
 extras_require = {
     "azure":[
-        "azureml.core<=1.38.0",
+        "azureml.core<=1.36.0",
         "azure-cli-core<=2.29.2",
         "azure-identity<=1.7.1",
         "azure-cosmos<=4.2.0,>=4" 

@@ -56,7 +56,7 @@ def test_surprise_deep_dive_runs(notebooks, output_notebook, kernel_name):
         notebook_path,
         output_notebook,
         kernel_name=kernel_name,
-        parameters=dict(MOVIELENS_DATA_SIZE="mock100"),
+        parameters=dict(MOVIELENS_DATA_SIZE="mock100", EPOCHS=10, FACTORS=20),
     )
 
 

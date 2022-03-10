@@ -28,15 +28,7 @@ ABS_TOL = 0.05
                 "recall": 0.104350,
             },
         ),
-        (
-            "10m",
-            {
-                "map": 0.098745,
-                "ndcg": 0.319625,
-                "precision": 0.275756,
-                "recall": 0.154014,
-            },
-        ),
+        # 10m works but takes too long
     ],
 )
 def test_sar_single_node_integration(
@@ -93,10 +85,10 @@ def test_baseline_deep_dive_integration(
 
 @pytest.mark.integration
 @pytest.mark.parametrize(
-    "size, expected_values",
+    "size, epochs, factors, expected_values",
     [
         (
-            "1m",
+            "1m", 10, 20,
             dict(
                 rmse=0.89,
                 mae=0.70,
@@ -112,14 +104,18 @@ def test_baseline_deep_dive_integration(
     ],
 )
 def test_surprise_svd_integration(
-    notebooks, output_notebook, kernel_name, size, expected_values
+    notebooks, output_notebook, kernel_name, size, epochs, factors, expected_values
 ):
     notebook_path = notebooks["surprise_svd_deep_dive"]
     pm.execute_notebook(
         notebook_path,
         output_notebook,
         kernel_name=kernel_name,
-        parameters=dict(MOVIELENS_DATA_SIZE=size),
+        parameters=dict(
+            MOVIELENS_DATA_SIZE=size,
+            EPOCHS=epochs,
+            FACTORS=factors,
+        ),
     )
     results = sb.read_notebook(output_notebook).scraps.dataframe.set_index("name")[
         "data"

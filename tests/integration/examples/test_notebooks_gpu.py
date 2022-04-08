@@ -714,7 +714,7 @@ def test_sasrec_quickstart_integration(
 @pytest.mark.gpu
 @pytest.mark.integration
 @pytest.mark.parametrize(
-    "size, expected_values",
+    "size, epochs, expected_values",
     [
         (
             "1m",

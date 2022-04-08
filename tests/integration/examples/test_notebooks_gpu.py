@@ -709,3 +709,72 @@ def test_sasrec_quickstart_integration(
 
     for key, value in expected_values.items():
         assert results[key] == pytest.approx(value, rel=TOL, abs=ABS_TOL)
+
+
+@pytest.mark.gpu
+@pytest.mark.integration
+@pytest.mark.parametrize(
+    "size, expected_values",
+    [
+        (
+            "1m",
+            100,
+            dict(
+                eval_map_2=0.138111,
+                eval_ndcg_2=0.392379,
+                eval_precision_2=0.231383,
+                eval_recall_2=0.354346,
+                eval_map_4=0.171624,
+                eval_ndcg_4=0.443328,
+                eval_precision_4=0.251867,
+                eval_recall_4=0.409650,
+            ),
+        ),
+    ],
+)
+def test_standard_vae_deep_dive_integration(
+    notebooks, output_notebook, kernel_name, size, epochs, expected_values
+):
+    notebook_path = notebooks["standard_vae_deep_dive"]
+    pm.execute_notebook(
+        notebook_path,
+        output_notebook,
+        kernel_name=kernel_name,
+        parameters=dict(MOVIELENS_DATA_SIZE=size, EPOCHS=epochs),
+    )
+    results = sb.read_notebook(output_notebook).scraps.dataframe.set_index("name")[
+        "data"
+    ]
+
+    for key, value in expected_values.items():
+        assert results[key] == pytest.approx(value, rel=TOL, abs=ABS_TOL)
+
+
+# @pytest.mark.gpu
+# @pytest.mark.integration
+# @pytest.mark.parametrize(
+#     "size, expected_values",
+#     [
+#         (
+#             "1m",
+#             dict(ndcg=0.400983, precision=0.367997, recall=0.138352),
+#         ),
+#         # 10m works but takes too long
+#     ],
+# )
+# def test_multi_vae_deep_dive_integration(
+#     notebooks, output_notebook, kernel_name, size, expected_values
+# ):
+#     notebook_path = notebooks["multi_vae_deep_dive"]
+#     pm.execute_notebook(
+#         notebook_path,
+#         output_notebook,
+#         kernel_name=kernel_name,
+#         parameters=dict(MOVIELENS_DATA_SIZE=size),
+#     )
+#     results = sb.read_notebook(output_notebook).scraps.dataframe.set_index("name")[
+#         "data"
+#     ]
+
+#     for key, value in expected_values.items():
+#         assert results[key] == pytest.approx(value, rel=TOL, abs=ABS_TOL)

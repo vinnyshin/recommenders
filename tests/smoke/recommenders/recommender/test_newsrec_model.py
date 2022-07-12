@@ -3,6 +3,7 @@
 
 import os
 import pytest
+import gc
 
 try:
     from recommenders.models.newsrec.newsrec_utils import prepare_hparams
@@ -67,6 +68,8 @@ def test_model_nrms(mind_resource_path):
         ),
         BaseModel,
     )
+    del hparams, model
+    gc.collect()
 
 
 @pytest.mark.smoke
@@ -121,6 +124,8 @@ def test_model_naml(mind_resource_path):
         ),
         BaseModel,
     )
+    del hparams, model
+    gc.collect()
 
 
 @pytest.mark.smoke
@@ -173,6 +178,8 @@ def test_model_lstur(mind_resource_path):
         ),
         BaseModel,
     )
+    del hparams, model
+    gc.collect()
 
 
 @pytest.mark.smoke
@@ -225,3 +232,5 @@ def test_model_npa(mind_resource_path):
         ),
         BaseModel,
     )
+    del hparams, model
+    gc.collect()

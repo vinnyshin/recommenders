@@ -3,6 +3,7 @@
 
 import os
 import pytest
+import gc
 
 try:
     import tensorflow as tf
@@ -80,6 +81,8 @@ def test_DKN_iterator(deeprec_resource_path):
         test_round -= 1
         if test_round <= 0:
             break
+    del hparams, iterator, iterator_item2item
+    gc.collect()
 
 
 @pytest.mark.smoke
@@ -134,3 +137,6 @@ def test_Sequential_Iterator(deeprec_resource_path, deeprec_config_path):
     assert iterator is not None
     for res in iterator.load_data_from_file(train_file):
         assert isinstance(res, dict)
+    del hparams, iterator
+    gc.collect()
+

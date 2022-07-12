@@ -3,6 +3,7 @@
 
 import os
 import pytest
+import gc
 
 try:
     import tensorflow as tf
@@ -50,6 +51,8 @@ def test_FFM_iterator(deeprec_resource_path):
     assert iterator is not None
     for res in iterator.load_data_from_file(data_file):
         assert isinstance(res, tuple)
+    del hparams, iterator
+    gc.collect()
 
 
 @pytest.mark.smoke
@@ -77,6 +80,8 @@ def test_model_xdeepfm(deeprec_resource_path):
     assert model.run_eval(data_file) is not None
     assert isinstance(model.fit(data_file, data_file), BaseModel)
     assert model.predict(data_file, output_file) is not None
+    del hparams, model
+    gc.collect()
 
 
 @pytest.mark.smoke
@@ -114,6 +119,8 @@ def test_model_dkn(deeprec_resource_path):
 
     assert isinstance(model.fit(train_file, valid_file), BaseModel)
     assert model.run_eval(valid_file) is not None
+    del hparams, model
+    gc.collect()
 
 
 @pytest.mark.smoke
@@ -180,6 +187,8 @@ def test_model_slirec(deeprec_resource_path, deeprec_config_path):
         model.fit(train_file, valid_file, valid_num_ngs=valid_num_ngs), BaseModel
     )
     assert model.predict(test_file, output_file) is not None
+    del hparams, model
+    gc.collect()
 
 
 @pytest.mark.smoke
@@ -246,6 +255,8 @@ def test_model_sum(deeprec_resource_path, deeprec_config_path):
         model.fit(train_file, valid_file, valid_num_ngs=valid_num_ngs), BaseModel
     )
     assert model.predict(valid_file, output_file) is not None
+    del hparams, model
+    gc.collect()
 
 
 @pytest.mark.smoke
@@ -271,3 +282,5 @@ def test_model_lightgcn(deeprec_resource_path, deeprec_config_path):
     model.infer_embedding(user_file, item_file)
     assert os.path.getsize(user_file) != 0
     assert os.path.getsize(item_file) != 0
+    del hparams, model
+    gc.collect()

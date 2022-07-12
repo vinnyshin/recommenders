@@ -3,6 +3,7 @@
 
 import os
 import pytest
+import gc
 
 try:
     from recommenders.models.newsrec.newsrec_utils import prepare_hparams
@@ -67,6 +68,8 @@ def test_news_iterator(mind_resource_path):
         assert isinstance(res, dict)
         assert len(res) == 5
         break
+    del hparams, train_iterator, test_iterator
+    gc.collect()
 
 
 @pytest.mark.smoke
@@ -128,3 +131,5 @@ def test_naml_iterator(mind_resource_path):
         assert isinstance(res, dict)
         assert len(res) == 11
         break
+    del hparams, train_iterator, test_iterator
+    gc.collect()

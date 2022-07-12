@@ -3,6 +3,7 @@
 
 import os
 import pytest
+import gc
 
 try:
     import papermill as pm
@@ -62,6 +63,9 @@ def test_ncf_integration(
 
     for key, value in expected_values.items():
         assert results[key] == pytest.approx(value, rel=TOL, abs=ABS_TOL)
+    del results
+    gc.collect()
+
 
 
 @pytest.mark.gpu
@@ -117,6 +121,10 @@ def test_ncf_deep_dive_integration(
 
     for key, value in expected_values.items():
         assert results[key] == pytest.approx(value, rel=TOL, abs=ABS_TOL)
+    del results
+    gc.collect()
+
+
 
 
 @pytest.mark.gpu
@@ -158,6 +166,8 @@ def test_fastai_integration(
 
     for key, value in expected_values.items():
         assert results[key] == pytest.approx(value, rel=TOL, abs=ABS_TOL)
+    del results
+    gc.collect()
 
 
 @pytest.mark.gpu
@@ -208,6 +218,8 @@ def test_xdeepfm_integration(
         assert results[key]["logloss"] == pytest.approx(
             value["logloss"], rel=TOL, abs=ABS_TOL
         )
+    del results
+    gc.collect()
 
 
 @pytest.mark.gpu
@@ -257,6 +269,8 @@ def test_wide_deep_integration(
 
     for key, value in expected_values.items():
         assert results[key] == pytest.approx(value, rel=TOL, abs=ABS_TOL)
+    del results
+    gc.collect()
 
 
 @pytest.mark.gpu
@@ -309,6 +323,8 @@ def test_slirec_quickstart_integration(
         # assert results[key]["logloss"] == pytest.approx(
         #     value["logloss"], rel=TOL, abs=ABS_TOL
         # )
+    del results
+    gc.collect()
 
 
 @pytest.mark.gpu
@@ -371,6 +387,8 @@ def test_nrms_quickstart_integration(
         assert results[key]["ndcg@10"] == pytest.approx(
             value["ndcg@10"], rel=TOL, abs=ABS_TOL
         )
+    del results
+    gc.collect()
 
 
 @pytest.mark.gpu
@@ -433,6 +451,8 @@ def test_naml_quickstart_integration(
         assert results[key]["ndcg@10"] == pytest.approx(
             value["ndcg@10"], rel=TOL, abs=ABS_TOL
         )
+    del results
+    gc.collect()
 
 
 @pytest.mark.gpu
@@ -495,6 +515,8 @@ def test_lstur_quickstart_integration(
         assert results[key]["ndcg@10"] == pytest.approx(
             value["ndcg@10"], rel=TOL, abs=ABS_TOL
         )
+    del results
+    gc.collect()
 
 
 @pytest.mark.gpu
@@ -557,6 +579,8 @@ def test_npa_quickstart_integration(
         assert results[key]["ndcg@10"] == pytest.approx(
             value["ndcg@10"], rel=TOL, abs=ABS_TOL
         )
+    del results
+    gc.collect()
 
 
 @pytest.mark.gpu
@@ -615,6 +639,8 @@ def test_lightgcn_deep_dive_integration(
 
     for key, value in expected_values.items():
         assert results[key] == pytest.approx(value, rel=TOL, abs=ABS_TOL)
+    del results
+    gc.collect()
 
 
 @pytest.mark.gpu
@@ -636,6 +662,8 @@ def test_dkn_quickstart_integration(notebooks, output_notebook, kernel_name):
     assert results["res"]["mean_mrr"] == pytest.approx(0.1639, rel=TOL, abs=ABS_TOL)
     assert results["res"]["ndcg@5"] == pytest.approx(0.1735, rel=TOL, abs=ABS_TOL)
     assert results["res"]["ndcg@10"] == pytest.approx(0.2301, rel=TOL, abs=ABS_TOL)
+    del results
+    gc.collect()
 
 
 @pytest.mark.gpu
@@ -664,6 +692,8 @@ def test_cornac_bivae_integration(
 
     for key, value in expected_values.items():
         assert results[key] == pytest.approx(value, rel=TOL, abs=ABS_TOL)
+    del results
+    gc.collect()
 
 
 @pytest.mark.gpu
@@ -723,3 +753,5 @@ def test_sasrec_quickstart_integration(
 
     for key, value in expected_values.items():
         assert results[key] == pytest.approx(value, rel=TOL, abs=ABS_TOL)
+    del results
+    gc.collect()

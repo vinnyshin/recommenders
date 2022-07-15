@@ -397,11 +397,11 @@ class BaseModel:
         )
         return group_impr_indexes, group_labels, group_preds
 
-    def run_fast_eval(self, news_filename, behaviors_file):
-        news_vecs = self.run_news(news_filename)
+    def run_fast_eval(self, news_filename, behaviors_file, news_vecs):
+        # news_vecs = self.run_news(news_filename)
         user_vecs = self.run_user(news_filename, behaviors_file)
 
-        self.news_vecs = news_vecs
+        # self.news_vecs = news_vecs
         self.user_vecs = user_vecs
 
         group_impr_indexes = []

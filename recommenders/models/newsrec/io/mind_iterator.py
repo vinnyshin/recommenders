@@ -73,6 +73,7 @@ class MINDIterator(BaseIterator):
         """
 
         self.nid2index = {}
+        self.index2nid = {}
         news_title = [""]
 
         with tf.io.gfile.GFile(news_file, "r") as rd:
@@ -85,6 +86,7 @@ class MINDIterator(BaseIterator):
                     continue
 
                 self.nid2index[nid] = len(self.nid2index) + 1
+                self.index2nid[self.nid2index[nid]] = nid
                 title = word_tokenize(title)
                 news_title.append(title)
 
